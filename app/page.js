@@ -1,103 +1,155 @@
-import Image from "next/image";
-
-export default function Home() {
+import React from "react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+function homepage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <>
+      <Navbar />
+      <main className="bg-white min-h-screen w-full flex flex-col">
+        <section className="bg-amber-50 flex-1 flex flex-row justify-items-center min-h-screen">
+          <div className="m-10 flex-1 flex flex-col justify-center items-start">
+            <h1 className="text-3xl font-bold">
+              When life crumbles... Chip Happens.
+            </h1>
+            <p className="mt-2">
+              Life’s too short for boring cookies.
+              <br />
+              At Chip Happens, we believe every bite should be bold, gooey, and
+              unforgettable.
+            </p>
+            <a href="#" className="mt-4 bg-yellow-200 p-2 hover:underline">
+              Explore the menu
+            </a>
+          </div>
+          <div className="w-1/2  flex-1 flex justify-center items-center">
+            <img
+              src="/chip-placeholder.png"
+              alt="Chip Happens"
+              className="w-full h-screen bg-gray-200 object-cover"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          </div>
+        </section>
+
+        <section
+          id="services"
+          className="w-full px-4 md:px-10 mt-40 min-h-screen"
+        >
+          <h1 className="text-3xl font-bold pb-3 text-center">What We Offer</h1>
+          <div className="flex flex-col md:flex-row gap-6 md:gap-10 max-w-7xl mx-auto">
+            {[
+              {
+                title: "Pre-packed Cookies",
+                text: "Pre-packaged cookies for on-the-go indulgence, perfect for satisfying your sweet tooth anytime, anywhere.",
+                image:
+                  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+              },
+              {
+                title: "Daily Cookies",
+                text: "Freshly baked cookies available daily at our bakery and select local cafes. Stop by for a warm treat!",
+                image:
+                  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+              },
+              {
+                title: "Cookie Cart",
+                text: "Bring the cookie magic to your next celebration! Our mobile cookie cart serves fresh-baked joy at parties, weddings, and corporate events.",
+                image:
+                  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+              },
+            ].map((item, idx) => (
+              <article
+                key={idx}
+                className="flex-1 overflow-hidden rounded-xl shadow-lg transition hover:shadow-xl bg-white"
+              >
+                <img
+                  alt={item.title}
+                  src={item.image}
+                  className="h-48 md:h-60 w-full object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-600">{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="w-full px-8 ">
+          <h1 className="text-3xl font-bold text-center pb-12">
+            Recent Chip Happenings
+          </h1>
+
+          <div className="space-y-12">
+            {[
+              {
+                title: "Freshly Baked Cookies",
+                text: "Our cookies are baked fresh daily with the finest ingredients for a gooey, unforgettable experience.",
+                image: "/chip-placeholder.png",
+                bg: "bg-amber-50",
+                reverse: false,
+              },
+              {
+                title: "Unique Flavors",
+                text: "Discover a rotating menu of bold, creative flavors you won’t find anywhere else.",
+                image: "/chip-placeholder.png",
+                bg: "bg-white",
+                reverse: true,
+              },
+              {
+                title: "Cookie Cart",
+                text: "Bring the cookie magic to your next celebration! Our mobile cookie cart serves fresh-baked joy at parties, weddings, and corporate events.",
+                image: "/chip-placeholder.png",
+                bg: "bg-amber-50",
+                reverse: false,
+              },
+            ].map((item, idx) => (
+              <div key={idx} className={`${item.bg} w-full rounded-xl`}>
+                <div
+                  className={`max-w-7xl mx-auto flex flex-col ${
+                    item.reverse ? "md:flex-row-reverse" : "md:flex-row"
+                  } items-center p-8 md:p-12`}
+                >
+                  {/* Text Content */}
+                  <div
+                    className={`flex-1 flex flex-col ${
+                      item.reverse
+                        ? "items-center md:items-end text-center md:text-right"
+                        : "items-center md:items-start text-center md:text-left"
+                    }`}
+                  >
+                    <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
+                    <p className="text-gray-700">{item.text}</p>
+                    <a
+                      href="#"
+                      className="mt-6 bg-yellow-200 px-4 py-2 rounded-md font-medium hover:underline"
+                    >
+                      Explore the menu
+                    </a>
+                  </div>
+
+                  {/* Image */}
+                  <div
+                    className={`flex-1 flex justify-center pt-8 md:pt-0 ${
+                      item.reverse ? "md:justify-start" : "md:justify-end"
+                    }`}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full bg-gray-200"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 }
+
+export default homepage;
