@@ -34,37 +34,61 @@ export default function CardPayment() {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    if (formData.fullName && formData.cardNumber && formData.expiry && formData.cvv) {
-      router.push(`/Cart/Receipt?status=success&amount=${finalAmount.toFixed(2)}`);
+    if (
+      formData.fullName &&
+      formData.cardNumber &&
+      formData.expiry &&
+      formData.cvv
+    ) {
+      router.push(
+        `/Cart/Receipt?status=success&amount=${finalAmount.toFixed(2)}`
+      );
     } else {
       router.push(`/Cart/Receipt?status=failed`);
     }
   };
 
   return (
-    <div className="mx-auto justify-items-center pt-8">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-[800px] rounded-lg border border-gray-300 bg-white p-6 shadow-md space-y-6"
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Credit & Debit cards</h3>
-          <div className="flex gap-2">
-            <img src="/visa.svg" alt="Visa" className={`h-6 ${cardType === "visa" ? "opacity-100" : "opacity-40"}`} />
-            <img src="/mastercard.svg" alt="MasterCard" className={`h-6 ${cardType === "mastercard" ? "opacity-100" : "opacity-40"}`} />
-            <img src="/amex.svg" alt="Amex" className={`h-6 ${cardType === "amex" ? "opacity-100" : "opacity-40"}`} />
-          </div>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-[620px] justify-items-center rounded-lg border border-gray-300 bg-white p-10 shadow-md space-y-6 text-gray-800"
+    >
+      <div className=" w-full flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Credit & Debit cards</h3>
+        <div className="flex gap-2">
+          <img
+            src="/visa.svg"
+            alt="Visa"
+            className={`h-6 ${
+              cardType === "visa" ? "opacity-100" : "opacity-40"
+            }`}
+          />
+          <img
+            src="/mastercard.svg"
+            alt="MasterCard"
+            className={`h-6 ${
+              cardType === "mastercard" ? "opacity-100" : "opacity-40"
+            }`}
+          />
+          <img
+            src="/amex.svg"
+            alt="Amex"
+            className={`h-6 ${
+              cardType === "amex" ? "opacity-100" : "opacity-40"
+            }`}
+          />
         </div>
-
-        {/* Cardholder Name */}
+      </div>
+      <div className="max-w-[500px] w-full space-y-6">
         <div>
           <label className="text-sm">Cardholder Name</label>
           <input
             type="text"
             placeholder="Full Name"
             value={formData.fullName}
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, fullName: e.target.value })
+            }
             className="mt-1 block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-sm focus:border-gray-800 focus:ring-gray-800"
           />
         </div>
@@ -121,30 +145,31 @@ export default function CardPayment() {
               type="password"
               placeholder="•••"
               value={formData.cvv}
-              maxLength={4}
-              onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
+              maxLength={3}
+              onChange={(e) =>
+                setFormData({ ...formData, cvv: e.target.value })
+              }
               className="mt-1 block w-full rounded-lg border border-gray-400 bg-gray-50 p-2.5 text-sm focus:border-gray-800 focus:ring-gray-800"
             />
           </div>
-        </div>
 
-        {/* Checkbox */}
+        </div>
         <div className="flex items-center gap-2">
-          <input type="checkbox" id="terms" required />
+          <input type="checkbox" id="terms" className="mb-2" required />
           <label htmlFor="terms" className="text-sm text-gray-700">
-            I have read and accept the terms of use and privacy policy
-          </label>
-        </div>
+          I have read and accept the terms of use and privacy policy
+        </label>
+      </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="flex w-full items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none"
-        >
-          {loading ? "Processing..." : `Pay ₱${(total * 1.1).toFixed(2)}`}
-        </button>
-      </form>
-    </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="flex w-full items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none"
+      >
+        {loading ? "Processing..." : `Pay ₱${(total * 1.1).toFixed(2)}`}
+      </button>
+      </div>
+    </form>
   );
 }

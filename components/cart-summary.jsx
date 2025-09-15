@@ -37,8 +37,8 @@ export default function CartSummaryReadOnly() {
   if (!hasMounted) return null;
 
   return (
-    <div className="bg-gray-50 p-5 rounded-lg w-full max-w-md border border-gray-200 shadow-sm">
-      <h3 className="font-semibold text-base mb-3 text-gray-900">
+    <div className="bg-white p-6 rounded-2xl w-full border border-amber-200 shadow-md">
+      <h3 className="font-extrabold text-lg mb-4 text-amber-600 text-center">
         Order Summary
       </h3>
 
@@ -47,28 +47,30 @@ export default function CartSummaryReadOnly() {
           Your cart is empty
         </p>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {cart.map((item, idx) => (
             <div
               key={idx}
-              className="flex justify-between items-start border-b border-gray-100 pb-2"
+              className="flex justify-between items-start border-b border-amber-100 pb-3"
             >
               <div>
-                <h4 className="font-medium text-gray-800 text-sm">
+                <h4 className="font-semibold text-gray-800 text-sm">
                   {item.qty} × {item.package}
                 </h4>
                 <ul className="list-disc list-inside text-[12px] text-gray-600 mt-1 space-y-0.5">
                   {item.flavors.map((flavor, i) => (
                     <li key={i}>
-                      {flavor} ₱
-                      {flavorPrices[flavor]?.toFixed(2) ?? "0.00"}
+                      {flavor} —{" "}
+                      <span className="text-amber-600 font-medium">
+                        ₱{flavorPrices[flavor]?.toFixed(2) ?? "0.00"}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="text-right text-sm text-gray-800">
-                <p className="font-semibold">
+              <div className="text-right text-sm">
+                <p className="font-bold text-amber-900">
                   ₱{item.price.toFixed(2)}
                 </p>
               </div>
@@ -76,16 +78,16 @@ export default function CartSummaryReadOnly() {
           ))}
 
           {/* Summary Section */}
-          <div className="border-t pt-3 mt-2 space-y-1.5 text-gray-700">
-            <div className="flex justify-between text-[13px]">
+          <div className="border-t border-amber-200 pt-4 mt-2 space-y-2 text-gray-700">
+            <div className="flex justify-between text-sm">
               <span>Subtotal</span>
-              <span>₱{total.toFixed(2)}</span>
+              <span className="font-medium">₱{total.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-[13px]">
+            <div className="flex justify-between text-sm">
               <span>VAT (10%)</span>
-              <span>₱{(total * 0.1).toFixed(2)}</span>
+              <span className="font-medium">₱{(total * 0.1).toFixed(2)}</span>
             </div>
-            <div className="flex justify-between font-semibold text-base text-gray-900 pt-1">
+            <div className="flex justify-between font-extrabold text-lg text-green-600 pt-2">
               <span>Total</span>
               <span>₱{(total * 1.1).toFixed(2)}</span>
             </div>

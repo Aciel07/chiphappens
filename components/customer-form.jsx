@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import CardPayment from "@/components/card-payment";
-import QRPayment from "@/components/qr-payment";
 
 export default function CustomerForm() {
   const [formData, setFormData] = useState({
@@ -60,10 +59,6 @@ export default function CustomerForm() {
       }
     }
 
-    if (!formData.payment_method) {
-      newErrors.payment_method = "Please select a payment method";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -73,15 +68,11 @@ export default function CustomerForm() {
     if (!validate()) return;
 
     console.log("Form data:", formData);
-    // Later: send to Supabase or receipt page
   };
 
   return (
-    <div className="mx-auto justify-items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-[700px] p-10"
-      >
+    <div className="mx-auto justify-items-center ">
+      <form onSubmit={handleSubmit} className="w-full p-10  max-w-[700px]">
         <h2 className="text-left font-bold text-2xl text-gray-800">
           Billing Details
         </h2>
@@ -154,35 +145,9 @@ export default function CustomerForm() {
               </p>
             )}
           </div>
-
-          <div>
-            <label htmlFor="payment_method">Payment Method</label>
-            <select
-              id="payment_method"
-              name="payment_method"
-              value={formData.payment_method}
-              onChange={handleChange}
-              className={`block w-full rounded-lg border ${
-                errors.payment_method ? "border-red-500" : "border-gray-400"
-              } bg-gray-50 p-2.5 text-sm text-black focus:border-gray-800 focus:ring-gray-800`}
-            >
-              <option value="">Select a payment method</option>
-              <option value="credit_card">Credit Card / Debit Card</option>
-              <option value="qr_payment">QR Payment</option>
-            </select>
-            {errors.payment_method && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.payment_method}
-              </p>
-            )}
-          </div>
         </div>
       </form>
-
-      <div className="w-full max-w-[700px] px-10 pb-10">
-        {formData.payment_method === "credit_card" && <CardPayment />}
-        {formData.payment_method === "qr_payment" && <QRPayment />}
-      </div>
+        <CardPayment />
     </div>
   );
 }

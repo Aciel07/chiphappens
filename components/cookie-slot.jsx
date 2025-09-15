@@ -5,14 +5,20 @@ import { useRouter } from "next/navigation";
 import { useSetAtom } from "jotai";
 import { addToCartAtom } from "@/lib/atom";
 
-export default function CookieSlot({ cookies, maxCookies, onRemove, onResetBox }) {
+export default function CookieSlot({
+  cookies,
+  maxCookies,
+  onRemove,
+  onResetBox,
+}) {
   const addToCart = useSetAtom(addToCartAtom);
   const router = useRouter();
   const [showPrompt, setShowPrompt] = useState(false);
 
-  const slots = Array.from({ length: maxCookies }, (_, i) => cookies[i] || null);
-  const gridCols =
-    maxCookies <= 4 ? "grid-cols-2" : maxCookies <= 8 ? "grid-cols-3" : "grid-cols-4";
+  const slots = Array.from(
+    { length: maxCookies },
+    (_, i) => cookies[i] || null
+  );
   const totalPrice = cookies.reduce((sum, c) => sum + (c.price || 0), 0);
 
   const handleAddToCart = () => {
@@ -31,92 +37,103 @@ export default function CookieSlot({ cookies, maxCookies, onRemove, onResetBox }
     setShowPrompt(true);
   };
 
-  return (
-    <div className="flex  max-h-[500px]">
-      <aside className="w-80 bg-white border rounded-2xl p-5 shadow-lg flex flex-col">
-        <h3 className="text-lg font-bold mb-4 text-black text-center">
-          Cookie Box ({cookies.length}/{maxCookies})
-        </h3>
+  const handleAddMore = () => {
+    setShowPrompt(false);
+    onResetBox?.();
+    router.push("/Menu");
+  };
 
-        {/* Slots Grid */}
-        <div className={`grid ${gridCols} gap-3`}>
-          {slots.map((cookie, idx) => (
-            <div
-              key={idx}
-              className="relative aspect-square border-2 border-dashed rounded-xl flex items-center justify-center bg-gray-50"
-            >
+  const handleCheckout = () => {
+    setShowPrompt(false);
+    router.push("/Cart");
+  };
+
+  return (
+    <div className="relative w-full bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl px-6 py-4 shadow-md border border-yellow-200 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <h5 className="absolute -top-2 left-8 bg-amber-100 px-3 py-3 rounded-md text-[12px] font-bold text-amber-700 shadow-sm">
+        Cookie Slot {cookies.length}/{maxCookies}
+      </h5>
+
+      <div className="flex-1 flex justify-center flex-wrap gap- mt-7 ">
+        {slots.map((cookie, idx) => (
+          <div key={idx} className="flex flex-col items-center w-30">
+            <div className="relative w-16 h-16 flex-shrink-0 rounded-full border-2 border-dashed border-amber-300 bg-white flex items-center justify-center shadow-sm">
               {cookie ? (
                 <>
                   <img
                     src={cookie.image || "https://via.placeholder.com/150"}
                     alt={cookie.name}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-full"
+                    onClick={() => onRemove(idx)}
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs py-1 text-center truncate px-1">
-                    {cookie.name}
-                  </div>
                   <button
                     onClick={() => onRemove(idx)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow"
+                    className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs shadow-md"
                   >
                     ✕
                   </button>
                 </>
               ) : (
-                <span className="text-gray-400 text-sm">Empty</span>
+                <span className="text-amber-400 text-lg font-extrabold">+</span>
               )}
             </div>
-          ))}
-        </div>
 
-        {/* Total & Add Button */}
-        <div className="mt-4 flex flex-col gap-2">
-          <p className="text-xl font-bold text-gray-800 text-center">
-            ₱{totalPrice.toFixed(2)}
-          </p>
-          <button
-            onClick={handleAddToCart}
-            disabled={cookies.length === 0}
-            className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
-          >
-            Add to Cart
-          </button>
-        </div>
-
-        {/* Prompt Modal */}
-        {showPrompt && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl p-6 shadow-xl max-w-sm text-center">
-              <h4 className="mb-3">
-                Would you like to add more items?
-              </h4>
-              <p className="mb-5">
-                You can add another box of cookies, or go to checkout now.
+            {cookie && (
+              <p className="mt-1 text-center text-xs text-[#373737] break-words w-full leading-tight">
+                {cookie.name}
               </p>
-              <div className="flex justify-between gap-3">
-                <button
-                  onClick={() => {
-                    setShowPrompt(false);
-                    onResetBox();
-                  }}
-                  className="flex-1 bg-gray-100 text-gray-800 py-2 rounded-lg hover:bg-gray-200"
-                >
-                  Add More
-                </button>
-                <button
-                  onClick={() => {
-                    setShowPrompt(false);
-                    router.push("/Cart/Checkout");
-                  }}
-                  className="flex-1 bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700"
-                >
-                  Checkout
-                </button>
-              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="border-l-2 border-[#F1D4A5] p-4 flex flex-col items-center gap-3">
+        <span className="text-lg font-extrabold text-green-500">
+          ₱{totalPrice.toFixed(2)}
+        </span>
+
+        <button
+          onClick={handleAddToCart}
+          disabled={cookies.length === 0}
+          className="bg-amber-500 text-white px-5 py-1.5 rounded-full font-semibold shadow hover:bg-amber-600 transition disabled:bg-gray-300 disabled:cursor-not-allowed text-sm w-full max-w-[200px]"
+        >
+          Add to Cart
+        </button>
+
+        <button
+          onClick={onResetBox}
+          className="bg-amber-500 text-white px-5 py-1.5 rounded-full font-semibold shadow hover:bg-amber-600 transition disabled:bg-gray-300 disabled:cursor-not-allowed text-sm w-full max-w-[200px]"
+        >
+          Change Package
+        </button>
+      </div>
+
+      {showPrompt && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
+            <h3 className="text-lg font-bold text-amber-700 mb-4">
+              Added to Cart!
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">
+              Do you want to add more cookies or proceed to checkout?
+            </p>
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={handleAddMore}
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition"
+              >
+                Add More
+              </button>
+              <button
+                onClick={handleCheckout}
+                className="px-4 py-2 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition"
+              >
+                Checkout
+              </button>
             </div>
           </div>
-        )}
-      </aside>
+        </div>
+      )}
     </div>
   );
 }

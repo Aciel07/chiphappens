@@ -4,7 +4,6 @@ import Navbar from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-
 import { useAtom, useSetAtom } from "jotai";
 import {
   cartAtom,
@@ -12,6 +11,7 @@ import {
   updateQtyAtom,
   cartTotalAtom,
 } from "@/lib/atom";
+import Footer from "@/components/footer";
 
 export default function CartPage() {
   const [cart] = useAtom(cartAtom);
@@ -20,7 +20,7 @@ export default function CartPage() {
   const updateQty = useSetAtom(updateQtyAtom);
   const router = useRouter();
   const [flavorPrices, setFlavorPrices] = useState({});
-  const [cartNotes, setCartNotes] = useState(""); // NEW: Cart-level notes
+  const [cartNotes, setCartNotes] = useState("");
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -37,7 +37,6 @@ export default function CartPage() {
       data.forEach(({ name, price }) => {
         prices[name] = price;
       });
-
       setFlavorPrices(prices);
     };
 
@@ -52,35 +51,55 @@ export default function CartPage() {
   return (
     <>
       <Navbar />
-      <section className="bg-white flex-1 flex flex-col items-center min-h-screen py-10">
-        <div className="w-full max-w-3xl p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Cart</h2>
+      <main className="bg-amber-50 min-h-screen w-full flex flex-col">
+        <section className="px-6 py-16 text-center bg-gradient-to-r from-amber-700 via-amber-500 to-amber-200 text-amber-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold drop-shadow-lg">
+            Your Cart
+          </h1>
+          <p className="mt-3 text-base sm:text-lg md:text-xl text-amber-900/90 max-w-2xl mx-auto">
+            Review your cookies before checkout. Add notes, adjust quantities,
+            and get ready for some sweet happiness.
+          </p>
+        </section>
 
+        <section className="flex-1 w-full max-w-3xl mx-auto px-6 py-12">
           {cart.length === 0 ? (
-            <div className="text-center text-gray-500 py-12">
-              <p className="text-lg">🛒 Your cart is empty</p>
+            <div className="flex flex-col items-center justify-center py-16 bg-white rounded-3xl shadow-lg border border-amber-200 max-w-3xl mx-auto">
+              <p className="text-xl font-semibold text-amber-900 mb-6">
+                Your cart is empty 😢
+              </p>
+
+              <img
+                src="https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/background/cookie_bg.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvYmFja2dyb3VuZC9jb29raWVfYmcucG5nIiwiaWF0IjoxNzU3OTI0MTA1LCJleHAiOjIwNzMyODQxMDV9.rSHQwTB4MgdngJnnzzq4UPen8310TyAF7czuNHR4lVA"
+                alt="Empty Cart"
+                className="w-44 h-44 object-cover mb-6 rounded-full shadow-sm opacity-80"
+              />
+
               <button
                 onClick={() => router.push("/Menu")}
-                className="mt-4 bg-gray-900 text-white px-5 py-2 rounded-lg hover:bg-gray-800 transition"
+                className="bg-amber-500 text-white px-6 py-2 rounded-full font-semibold shadow hover:bg-amber-600 transition"
               >
                 Browse Menu
               </button>
+
+              <p className="mt-4 text-sm text-gray-500 text-center px-4">
+                Tip: Add some cookies to your cart and start snacking! 🍪
+              </p>
             </div>
           ) : (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               {cart.map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border border-gray-200 rounded-xl p-5 bg-gray-50 "
+                  className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 bg-white  border-2 border-amber-300 rounded-2xl p-6 shadow hover:shadow-md transition"
                 >
                   {/* Item Details */}
                   <div className="flex-1 space-y-2">
-                    <h4 className="text-sm font-semibold text-gray-900">
+                    <h4 className="text-base font-bold text-amber-900">
                       {item.package}
                     </h4>
-
                     {hasMounted && (
-                      <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                      <ul className="list-disc list-inside text-sm text-amber-800 space-y-1">
                         {item.flavors.map((flavor, i) => (
                           <li key={i}>
                             {flavor} –{" "}
@@ -94,8 +113,8 @@ export default function CartPage() {
                   </div>
 
                   {/* Quantity & Price */}
-                  <div className="flex flex-col items-end sm:items-center gap-2 sm:gap-4 min-w-[130px]">
-                    <p className="text-base font-semibold text-gray-900">
+                  <div className="flex flex-col items-end sm:items-center gap-3 min-w-[130px]">
+                    <p className="text-lg font-extrabold text-amber-900">
                       ₱{item.price.toFixed(2)}
                     </p>
 
@@ -103,101 +122,86 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQty({ index, qty: item.qty - 1 })}
                         disabled={item.qty <= 1}
-                        className="w-9 h-9 text-xl font-bold bg-gray-100 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
-                        aria-label="Decrease quantity"
+                        className="w-8 h-8 text-lg font-bold bg-amber-100 text-amber-800 rounded-full flex items-center justify-center hover:bg-amber-200 disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         –
                       </button>
-
-                      <span className="w-8 text-center text-sm font-medium text-gray-800">
+                      <span className="w-8 text-center text-sm font-semibold text-amber-900">
                         {item.qty}
                       </span>
-
                       <button
                         onClick={() => updateQty({ index, qty: item.qty + 1 })}
-                        className="w-9 h-9 text-xl font-bold bg-gray-100 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200"
-                        aria-label="Increase quantity"
+                        className="w-8 h-8 text-lg font-bold bg-amber-100 text-amber-800 rounded-full flex items-center justify-center hover:bg-amber-200"
                       >
                         +
                       </button>
                     </div>
                   </div>
 
+                  {/* Remove */}
                   <button
                     onClick={() => removeFromCart(index)}
-                    className="mt-2 sm:mt-0 sm:ml-4 text-red-500 hover:text-red-600 transition-colors"
-                    aria-label="Remove item"
+                    className="mt-2 sm:mt-0 text-red-500 hover:text-red-600 transition"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                      />
-                    </svg>
+                    ✕
                   </button>
                 </div>
               ))}
 
-              <div className="mt-6">
+              {/* Notes */}
+              <div className="bg-white  border-2 border-amber-300 rounded-2xl p-6 shadow">
                 <label
                   htmlFor="cart-notes"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-semibold text-amber-900 mb-2"
                 >
                   Notes (Optional)
                 </label>
                 <textarea
                   id="cart-notes"
                   rows={3}
-                  className="bg-white min-h-[100px] w-full border rounded-md p-3 text-sm text-gray-700 focus:outline-none"
-                  placeholder="Add any special instructions, delivery preferences, etc."
+                  className="w-full border border-dashed border-amber-300 rounded-lg p-3 text-sm text-amber-900 focus:outline-none"
+                  placeholder="Add any special instructions or delivery preferences..."
                   value={cartNotes}
                   onChange={(e) => setCartNotes(e.target.value)}
                 />
               </div>
 
               {/* Cart Summary */}
-              <div className="border-t pt-6 mt-6 space-y-2 text-gray-700">
-                <div className="flex justify-between text-sm">
+              <div className="bg-white  border-2 border-amber-300 rounded-2xl p-6 shadow space-y-3">
+                <div className="flex justify-between text-sm text-amber-800">
                   <span>Subtotal</span>
                   <span>₱{total.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-sm text-amber-800">
                   <span>VAT (10%)</span>
                   <span>₱{(total * 0.1).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between font-semibold text-lg">
+                <div className="flex justify-between font-extrabold text-lg text-green-600 ">
                   <span>Total</span>
                   <span>₱{(total * 1.1).toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex justify-between items-center mt-6">
+              <div className="flex justify-between items-center">
                 <button
                   onClick={() => router.push("/Menu")}
-                  className="text-sm text-gray-600 hover:text-gray-900 underline"
+                  className="text-sm text-amber-700 hover:text-amber-900 underline"
                 >
                   ← Add More Items
                 </button>
                 <button
                   onClick={() => router.push("/Cart/Checkout")}
-                  className="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition"
+                  className="bg-amber-500 text-white px-6 py-2 rounded-full font-semibold shadow hover:bg-amber-600 transition"
                 >
                   Checkout
                 </button>
               </div>
             </div>
           )}
-        </div>
-      </section>
+        </section>
+      </main>
+      <Footer />
     </>
   );
 }

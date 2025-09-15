@@ -10,11 +10,9 @@ function MenuPage() {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedType, setSelectedType] = useState(null);
 
-  // Steps
-  const [boxSize, setBoxSize] = useState(null); // Step 1
-  const [cookies, setCookies] = useState([]); // Step 3
+  const [boxSize, setBoxSize] = useState(null);
+  const [cookies, setCookies] = useState([]);
 
-  // fetch cookies
   useEffect(() => {
     const fetchMenu = async () => {
       const { data, error } = await supabase.from("menu_items").select("*");
@@ -40,91 +38,86 @@ function MenuPage() {
     setCookies((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const setFlavorPrices = (prices) => {
-    setFlavorPrices(prices);
+  const boxImages = {
+    1: "https://images.unsplash.com/photo-1597733153203-a54d0fbc47de?q=80&w=790&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    4: "https://images.unsplash.com/photo-1598839950984-034f6dc7b495?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29va2llc3xlbnwwfHwwfHx8Mg%3D%3D",
+    6: "https://images.unsplash.com/photo-1639678111962-88fffeb071cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvb2tpZXN8ZW58MHx8MHx8fDI%3D",
+    8: "https://images.unsplash.com/photo-1557310717-d6bea9f36682?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29va2llc3xlbnwwfHwwfHx8Mg%3D%3D",
+    10: "https://images.unsplash.com/photo-1622467827417-bbe2237067a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29va2llc3xlbnwwfHwwfHx8Mg%3D%3D",
   };
 
   if (!boxSize) {
     return (
       <>
         <Navbar />
-       <main className="bg-white min-h-screen w-full flex flex-col items-center">
-  <div className="flex flex-col items-center w-full min-h-screen pt-10 pb-20 px-6 md:px-12 bg-gray-100">
-    <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-800 text-center">
-      Choose Your Cookie Box
-    </h2>
+        <main className="bg-[#ffffff] w-full flex flex-col items-center">
+          <h2 className="text-3xl font-bold pt-6 mb-6 text-[#4B3B2A] text-center">
+            Choose Your Cookie Box
+          </h2>
 
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl">
-      {[1, 4, 6, 8, 10].map((size) => {
-        const getTitle = () => {
-          switch (size) {
-            case 1:
-              return "Just One Bite";
-            case 4:
-              return "Snack Pack";
-            case 6:
-              return "Half-Baked Heaven";
-            case 8:
-              return "Chip Happens Box";
-            case 10:
-              return "Total Chip Show";
-            default:
-              return `Box of ${size}`;
-          }
-        };
+          <div className="max-h-screen max-w-5xl grid grid-cols-2 md:grid-cols-3 gap-6 w-full overflow-y-auto">
+            {[1, 4, 6, 8, 10].map((size) => {
+              const getTitle = () => {
+                switch (size) {
+                  case 1:
+                    return "Just One Bite";
+                  case 4:
+                    return "Snack Pack";
+                  case 6:
+                    return "Half-Baked Heaven";
+                  case 8:
+                    return "Chip Happens Box";
+                  case 10:
+                    return "Total Chip Show";
+                  default:
+                    return `Box of ${size}`;
+                }
+              };
 
-        const getSubtitle = () => {
-          switch (size) {
-            case 1:
-              return "When chip really happens.";
-            case 4:
-              return "Four chip goes a long way.";
-            case 6:
-              return "Six chances to snack smarter.";
-            case 8:
-              return "It’s getting serious now.";
-            case 10:
-              return "You didn’t come to play.";
-            default:
-              return "";
-          }
-        };
+              const getSubtitle = () => {
+                switch (size) {
+                  case 1:
+                    return "When chip really happens.";
+                  case 4:
+                    return "Four chip goes a long way.";
+                  case 6:
+                    return "Six chances to snack smarter.";
+                  case 8:
+                    return "Eight is great for sharing.";
+                  case 10:
+                    return "Ten times the chip, ten times the fun.";
+                  default:
+                    return "";
+                }
+              };
 
-        return (
-          <div
-  key={size}
-  onClick={() => setBoxSize(size)}
-  className="relative cursor-pointer rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group"
->
-  {/* Background Image */}
-  <img
-    src={
-      size === 1
-        ? "https://via.placeholder.com/300?text=Single"
-        : "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80"
-    }
-    alt={getTitle()}
-    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-  />
+              return (
+                <div
+                  key={size}
+                  onClick={() => setBoxSize(size)}
+                  className="relative cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 group"
+                >
+                  <img
+                    src={boxImages[size]}
+                    alt={getTitle()}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
 
-  {/* Overlay (darker at bottom) */}
-  <div className="absolute inset-0 bg-gradient-to-t from-yellow/60 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#4B3B2A]/70 via-[#A47551]/30 to-transparent" />
 
-  {/* Text Content */}
-  <div className="relative z-10 flex flex-col items-center justify-end h-[220px] px-4 pb-6 text-center">
-    <h4 className="text-lg font-bold text-white drop-shadow-md">
-      {getTitle()}
-    </h4>
-    <p className="text-xs text-gray-200 mt-1">{getSubtitle()}</p>
-  </div>
-</div>
-
-        );
-      })}
-    </div>
-  </div>
-</main>
-
+                  <div className="relative z-10 flex flex-col items-center justify-end h-[220px] px-4 pb-6 text-center">
+                    <h4 className="text-lg font-bold text-[#FFF8F0] drop-shadow-md">
+                      {getTitle()}
+                    </h4>
+                    <p className="text-xs text-[#F1E4C3] mt-1">
+                      {getSubtitle()}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </main>
       </>
     );
   }
@@ -132,49 +125,63 @@ function MenuPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white min-h-screen w-full flex flex-col">
-        <FilterBar
-          selectedType={selectedType}
-          setSelectedType={setSelectedType}
-        />
-
-        <section className="m-10  mr-10 -mt-5 flex flex-1 gap-6 ">
-          <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredItems.map((item) => (
-              <div
-                key={item.id}
-                className="card bg-gray-100 h-[250px] cursor-pointer"
-                onClick={() => handleAddToSlot(item)}
-              >
-                <figure>
-                  <img
-                    src={item.image || "https://via.placeholder.com/300"}
-                    alt={item.name}
-                    className="h-48 w-full object-cover bg-gray-50"
-                  />
-                </figure>
-                <div className="card-body p-5">
-                  <div className="flex items-center justify-between">
-                    <h4 className="card-title">{item.name}</h4>
-                    <p className="text-[14px] font-semibold text-green-700 ml-2">
-                      ₱{item.price.toFixed(2)}
-                    </p>
+      <main className="bg-[#ffffff] min-h-screen w-full flex flex-col">
+        <div className="flex flex-col items-center">
+          <div className="items-center px-6 py-4 w-full mt-2">
+            <CookieSlot
+              cookies={cookies}
+              maxCookies={boxSize}
+              onRemove={handleRemove}
+              onResetBox={() => {
+                setBoxSize(null);
+                setCookies([]);
+              }}
+            />
+          </div>
+          <section className="pl-10 pr-10 py-5 flex flex-1 gap-6 w-full ">
+            <FilterBar
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+            />
+            <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4">
+              {filteredItems.map((item) => (
+                <div
+                  key={item.id}
+                  className=" card bg-[#FAF3E0] h-full sm:h-80 cursor-pointer shadow-md rounded-lg border-2 border-yellow-200 "
+                  onClick={() => {
+                    const isComingSoon =
+                      item.image === null ||
+                      item.image.includes(
+                        "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/menu_items/coming_soon.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvbWVudV9pdGVtcy9jb21pbmdfc29vbi5wbmciLCJpYXQiOjE3NTc5MjM2MjIsImV4cCI6MjA3MzI4MzYyMn0.DBtQKcf1R-VLkkhmeEptYugtjYWRUcv1fl9sKh3oEh0"
+                      );
+                    if (!isComingSoon) {
+                      handleAddToSlot(item);
+                    }
+                  }}
+                >
+                  <figure>
+                    <img
+                      src={
+                        item.image ||
+                        "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/menu_items/coming_soon.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvbWVudV9pdGVtcy9jb21pbmdfc29vbi5wbmciLCJpYXQiOjE3NTc5MjM2MjIsImV4cCI6MjA3MzI4MzYyMn0.DBtQKcf1R-VLkkhmeEptYugtjYWRUcv1fl9sKh3oEh0"
+                      }
+                      alt={item.name}
+                      className="h-full w-full object-cover bg-gray-50 rounded-lg overflow-hidden"
+                    />
+                  </figure>
+                  <div className="card-body p-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="card-title">{item.name}</h4>
+                      <p className="mt-4 text-[14px] font-semibold text-green-700 ml-2">
+                        ₱{item.price.toFixed(2)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <CookieSlot
-            cookies={cookies}
-            maxCookies={boxSize}
-            onRemove={handleRemove}
-            onResetBox={() => {
-              setBoxSize(null);
-              setCookies([]);
-            }}
-          />
-        </section>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </>
   );

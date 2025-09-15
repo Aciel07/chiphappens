@@ -19,6 +19,7 @@
     scroll-behavior: smooth;
   }
 }
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -38,7 +39,6 @@ p {
   font-style: normal;
   line-height: 1.5;
   margin-bottom: 1rem;
-  color: #373737;
 }
 
 h1 {
@@ -63,7 +63,7 @@ h2 {
 
 h3 {
   font-family: var(--font-zilla);
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -76,7 +76,14 @@ h4 {
   font-style: normal;
   font-size: 16px;
   line-height: 1.2;
-  
+  color: #111;
+}
+
+h5 {
+  font-family: var(--font-Poppins);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.2;
   color: #111;
 }
 
