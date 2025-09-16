@@ -1,5 +1,4 @@
 "use client";
-
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle } from "lucide-react";
