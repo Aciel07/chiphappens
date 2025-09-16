@@ -18,7 +18,7 @@ function Footer() {
   const closeModal = () => setModalType(null);
 
   return (
-    <footer className="bg-stone-50 text-footer-text border-t border-cookie-brown/30">
+    <footer className="bg-white text-footer-text border-t border-cookie-brown">
       <div className="max-w-7xl mx-auto px-8 py-12 text-[#373737]">
         {/* Main Footer Content */}
         <div className="grid grid-cols-3 gap-8 mb-8">

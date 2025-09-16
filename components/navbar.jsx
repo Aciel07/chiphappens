@@ -15,7 +15,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="sticky top-0 bg-amber-50/95 backdrop-blur-md p-8 flex items-center justify-between z-50 shadow-md">
+    <nav className="sticky top-0 bg-white backdrop-blur-md p-8 flex items-center justify-between z-50 shadow-md">
       {/* Logo */}
       <Link
         href="/"

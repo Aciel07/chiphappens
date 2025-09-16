@@ -50,7 +50,7 @@ function MenuPage() {
     return (
       <>
         <Navbar />
-        <main className="bg-[#ffffff] w-full flex flex-col items-center">
+        <main className="bg-amber-50 w-full flex flex-col items-center">
           <h2 className="text-3xl font-bold pt-6 mb-6 text-[#4B3B2A] text-center">
             Choose Your Cookie Box
           </h2>

@@ -18,7 +18,7 @@ export default function Page() {
 
           <div className="w-full lg:w-1/4 space-y-6 p-6">
             <CartSummary />
-            <section className="bg-white p-6 rounded-2xl w-full border border-amber-200 shadow-md">
+            <section className="bg-amber-50 p-6 rounded-2xl w-full border border-amber-200 shadow-md">
               <h4 className="font-extrabold text-amber-600 text-base mb-3">
                 Reminder:
               </h4>

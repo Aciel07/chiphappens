@@ -40,24 +40,23 @@ function Homepage() {
       <Navbar />
       <main className="bg-[#ffffff] w-full text-[#4B3B2A]">
         <section className=" bg-gradient-to-r from-amber-700 via-amber-500 to-amber-200 flex-1 flex flex-row justify-items-center min-h-screen -mt-3">
-          <div className="m-10 flex-1 flex flex-col items-center  w-1/2 justify-center text-center">
-            <h1 className="text-4xl font-bold text-[#4B3B2A]">
-              When life crumbles...
-              <br /> Chip Happens.
+          <div className="m-10 flex-1 flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              When life crumbles... <br /> Chip Happens.
             </h1>
-            <p className="mt-4 text-lg text-[#f3f0ee] text-center">
-              Life’s a mess, but our cookies don’t apologize for it.
-              <br />
+            <p className="mt-4 text-lg md:text-xl text-amber-100">
+              Life’s a mess, but our cookies don’t apologize for it. <br />
               Grab a handful, break the rules, and let the crumbs fall where
               they may.
             </p>
             <a
-              href="#"
-              className="mt-6 border border-[#F6E6A7]  text-[#4B3B2A] px-5 py-3 rounded-lg shadow hover:bg-[#E6D3B3]"
+              href="/Menu"
+              className="mt-6 inline-block bg-amber-500 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-white transition"
             >
               Explore our Menu
             </a>
           </div>
+
           <div className="w-1/2 flex-1 flex justify-center items-center">
             <img
               src="https://images.unsplash.com/photo-1631642034885-4f4ef938f32a?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -67,74 +66,79 @@ function Homepage() {
           </div>
         </section>
 
-        <section
-          id="services"
-          className="w-full px-6 min-h-screen flex flex-col justify-center items-center"
-        >
-          <h1 className=" text-3xl font-bold text-[#4B3B2A]">Our Services</h1>
-          <div className="flex flex-col md:flex-row gap-8 mb-10 max-w-7xl">
+         <div className="w-full text-center py-4 text-2xl">⋯ 🍪 ⋯</div>
+
+        {/* 🍪 SERVICES */}
+        <section className="w-full px-6 py-16 flex flex-col justify-center items-center">
+          <h1 className="text-3xl font-bold text-[#4B3B2A] mb-10">
+            Our Cookie Magic ✨
+          </h1>
+          <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
             {[
               {
                 title: "Pre-packed Cookies",
-                text: "Pre-packaged cookies for on-the-go indulgence, perfect for satisfying your sweet tooth anytime, anywhere.",
+                text: "On-the-go indulgence — sweet tooth satisfaction, anywhere.",
                 image:
-                  "https://images.unsplash.com/photo-1723990581262-bb6265db03d9?q=80&w=505&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  "https://images.unsplash.com/photo-1723990581262-bb6265db03d9?q=80&w=505&auto=format&fit=crop",
               },
               {
-                title: "Daily Cookies",
-                text: "Freshly baked cookies available daily at our bakery and select local cafes. Stop by for a warm treat!",
+                title: "Daily Fresh",
+                text: "Freshly baked, daily! Warm, gooey cookies at our shop.",
                 image:
-                  "https://images.unsplash.com/photo-1602198905482-0f42ad21ba2d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  "https://images.unsplash.com/photo-1602198905482-0f42ad21ba2d?q=80&w=870&auto=format&fit=crop",
               },
               {
                 title: "Cookie Cart",
-                text: "Bring the cookie magic to your next celebration! Our mobile cookie cart serves fresh-baked joy at parties, weddings, and corporate events.",
+                text: "Bring the joy to your party with our traveling cookie cart!",
                 image:
-                  "https://images.unsplash.com/photo-1731867101282-fe434cf2a90d?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  "https://images.unsplash.com/photo-1731867101282-fe434cf2a90d?q=80&w=387&auto=format&fit=crop",
               },
             ].map((item, idx) => (
-              <article
+              <motion.article
                 key={idx}
-                className="flex-1 overflow-hidden rounded-2xl drop-shadow-xl bg-[#FFF8F0] border border-[#E6D3B3]"
+                whileHover={{ scale: 1.05, rotate: 1 }}
+                className="flex-1 overflow-hidden rounded-2xl drop-shadow-xl bg-[#fff] border border-[#E6D3B3] flex flex-col"
               >
                 <img
                   alt={item.title}
                   src={item.image}
-                  className="h-60  w-full object-cover"
+                  className="h-52 w-full object-cover"
                   draggable={false}
-                  onContextMenu={(e) => e.preventDefault()}
                 />
-                <div className="p-5 bg-[#F1E4C3]">
+                <div className="p-6 flex flex-col items-center text-center bg-[#F9EFE0]">
                   <h3 className="text-xl font-semibold text-[#4B3B2A]">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-sm text-[#5C4631]">{item.text}</p>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         </section>
 
-        <section
-          id="best-sellers"
-          className="w-full  px-8 pb-16 bg-gradient-to-b from-amber-100 to-amber-200 -mt-3"
-        >
+
+        <section className="w-full px-8 pb-16 bg-amber-50">
           <h1 className="p-12 text-3xl font-bold text-center text-[#4B3B2A]">
-            Recent Chip Happenings
+            Recent Chip Happenings 🍪
           </h1>
 
           <div className="space-y-12 max-w-5xl mx-auto">
             {items.map((item, idx) => {
               const reverse = idx % 2 !== 0;
-              const bg = idx % 2 === 0 ? "bg-[#ffffff]" : "bg-[#ffffff]";
-              const imageUrl = item.image;
 
               return (
-                <div key={item.id} className={`${bg} w-full rounded-2xl`}>
+                <motion.div
+                  key={item.id}
+                  className="bg-white w-full rounded-3xl border-2 shadow-md"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                >
                   <div
                     className={`mx-auto flex flex-col ${
                       reverse ? "md:flex-row-reverse" : "md:flex-row"
-                    } items-center p-10 md:p-14`}
+                    } items-center p-10 gap-8`}
                   >
                     <div
                       className={`flex-1 flex flex-col ${
@@ -143,37 +147,30 @@ function Homepage() {
                           : "items-center md:items-start text-center md:text-left"
                       }`}
                     >
-                      <h2 className="text-2xl mb-4 text-[#4B3B2A]">
+                      <h2 className="text-2xl font-bold mb-4 text-[#4B3B2A]">
                         {item.name}
                       </h2>
-                      <p className="text-[#4f4f4e] max-w-sm ">
+                      <p className="text-[#5C4631] max-w-sm">
                         {item.description}
                       </p>
                     </div>
 
-                    <div
-                      className={`flex-1 flex justify-center pt-8 md:pt-0 ${
-                        reverse ? "md:justify-start" : "md:justify-end"
-                      }`}
-                    >
+                    <div className="flex-1 flex justify-center">
                       <motion.img
-                        src={imageUrl}
+                        src={item.image}
                         alt={item.name}
-                        className="w-60 h-60 md:w-80 md:h-80 object-cover rounded-full bg-[#E6D3B3]"
+                        className="w-52 h-52 md:w-72 md:h-72 object-cover rounded-full bg-[#E6D3B3] shadow-md"
                         draggable={false}
-                        onContextMenu={(e) => e.preventDefault()}
-                        animate={{
-                          y: [0, -20, 0, 20, 0],
-                        }}
+                        animate={{ y: [0, -15, 0, 15, 0] }}
                         transition={{
-                          duration: 3,
+                          duration: 5,
                           repeat: Infinity,
                           ease: "easeInOut",
                         }}
                       />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

@@ -37,7 +37,7 @@ export default function CartSummaryReadOnly() {
   if (!hasMounted) return null;
 
   return (
-    <div className="bg-white p-6 rounded-2xl w-full border border-amber-200 shadow-md">
+    <div className="bg-amber-50 p-6 rounded-2xl w-full border border-amber-200 shadow-md">
       <h3 className="font-extrabold text-lg mb-4 text-amber-600 text-center">
         Order Summary
       </h3>

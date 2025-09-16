@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import CardPayment from "@/components/card-payment";
 
 export default function CustomerForm() {
@@ -13,6 +13,15 @@ export default function CustomerForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [formCompleted, setFormCompleted] = useState(false);
+
+  const paymentRef = useRef(null);
+
+  useEffect(() => {
+    if (formCompleted && paymentRef.current) {
+      paymentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [formCompleted]);
 
   const formatPhone = (value) => {
     let digits = value.replace(/\D/g, "");
@@ -65,13 +74,17 @@ export default function CustomerForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      setFormCompleted(false);
+      return;
+    }
 
     console.log("Form data:", formData);
+    setFormCompleted(true);
   };
 
   return (
-    <div className="mx-auto justify-items-center ">
+    <div className="mx-auto justify-items-center  ">
       <form onSubmit={handleSubmit} className="w-full p-10  max-w-[700px]">
         <h2 className="text-left font-bold text-2xl text-gray-800">
           Billing Details
@@ -145,9 +158,20 @@ export default function CustomerForm() {
               </p>
             )}
           </div>
+
+          <button
+            type="submit"
+            className="mt-6 w-full bg-amber-600 text-white py-2 px-4 rounded-lg"
+          >
+            Save & Continue
+          </button>
         </div>
       </form>
-        <CardPayment />
+      {formCompleted && (
+        <div ref={paymentRef}>
+          <CardPayment />
+        </div>
+      )}
     </div>
   );
 }
