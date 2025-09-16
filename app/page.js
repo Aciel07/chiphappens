@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
-
+import Head from "next/head";
 function Homepage() {
   const items = [
     {

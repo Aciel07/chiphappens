@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import { supabase } from "@/lib/supabaseClient";
 import FilterBar from "@/components/filter-bar";
 import CookieSlot from "@/components/cookie-slot";
+import Head from "next/head";
 
 function MenuPage() {
   const [menuItems, setMenuItems] = useState([]);
