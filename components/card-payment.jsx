@@ -21,13 +21,22 @@ export default function CardPayment() {
   const detectCardType = (num) => {
     const trimmed = num.replace(/\s/g, "");
     if (/^4/.test(trimmed)) {
-      return { type: "visa", img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/visa.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvdmlzYS5wbmciLCJpYXQiOjE3NTgwMDkwODAsImV4cCI6MjA3MzM2OTA4MH0.Egjk_a31yyts1a7KO5qBy8sdaSvjdKeRleuJe_57T_8" };
+      return {
+        type: "visa",
+        img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/visa.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvdmlzYS5wbmciLCJpYXQiOjE3NTgwMDkwODAsImV4cCI6MjA3MzM2OTA4MH0.Egjk_a31yyts1a7KO5qBy8sdaSvjdKeRleuJe_57T_8",
+      };
     }
     if (/^5[1-5]/.test(trimmed)) {
-      return { type: "mastercard", img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/amex.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvYW1leC5zdmciLCJpYXQiOjE3NTgwMDkwMzIsImV4cCI6MjA3MzM2OTAzMn0.80XiB1XIeW7BtuTm34JMsi-4HXXiG9y6KHbsh0rS1oY" };
+      return {
+        type: "mastercard",
+        img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/amex.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvYW1leC5zdmciLCJpYXQiOjE3NTgwMDkwMzIsImV4cCI6MjA3MzM2OTAzMn0.80XiB1XIeW7BtuTm34JMsi-4HXXiG9y6KHbsh0rS1oY",
+      };
     }
     if (/^3[47]/.test(trimmed)) {
-      return { type: "amex", img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/amex.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvYW1leC5zdmciLCJpYXQiOjE3NTgwMDkwMzIsImV4cCI6MjA3MzM2OTAzMn0.80XiB1XIeW7BtuTm34JMsi-4HXXiG9y6KHbsh0rS1oY" };
+      return {
+        type: "amex",
+        img: "https://cdtmcdxrdnauwehohxkh.supabase.co/storage/v1/object/sign/images/amex.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85N2VhODBjMy1hYjczLTRlMGYtYTVjZi01YWFiM2RlODFkNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvYW1leC5zdmciLCJpYXQiOjE3NTgwMDkwMzIsImV4cCI6MjA3MzM2OTAzMn0.80XiB1XIeW7BtuTm34JMsi-4HXXiG9y6KHbsh0rS1oY",
+      };
     }
     return null;
   };
@@ -219,7 +228,6 @@ export default function CardPayment() {
           </div>
         </div>
 
-        {/* Terms */}
         <div className="flex items-center gap-2">
           <input type="checkbox" id="terms" className="mb-2" required />
           <label htmlFor="terms" className="text-sm text-gray-700">
@@ -227,7 +235,6 @@ export default function CardPayment() {
           </label>
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={loading}

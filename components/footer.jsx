@@ -20,9 +20,8 @@ function Footer() {
   return (
     <footer className="bg-white text-footer-text border-t border-cookie-brown">
       <div className="max-w-7xl mx-auto px-8 py-12 text-[#373737]">
-        {/* Main Footer Content */}
+
         <div className="grid grid-cols-3 gap-8 mb-8">
-          {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-cookie-golden">
               Chip Happens

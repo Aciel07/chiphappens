@@ -38,6 +38,27 @@ function Homepage() {
   return (
     <>
       <Navbar />
+      <Head>
+        <title>Chip Happens | Fresh, Funky, and Flavor-Packed Cookies</title>
+        <meta
+          name="description"
+          content="Life’s a mess, but our cookies don’t apologize for it. Indulge in fresh, funky, and flavor-packed cookies that break all the rules."
+        />
+        <meta
+          name="keywords"
+          content="cookies, fresh baked cookies, dessert, chocolate chip, caramel, double chocolate, sweet treats"
+        />
+        <meta name="author" content="Chip Happens" />
+        <meta
+          property="og:title"
+          content="Chip Happens | When Life Crumbles, Chip Happens"
+        />
+        <meta
+          property="og:description"
+          content="Explore our rebellious cookie collection — from OG Choco Chunk to Caramel Bloom and Double Trouble."
+        />
+        <meta property="og:url" content="https://your-website-url.com/" />
+      </Head>
       <main className="bg-[#ffffff] w-full text-[#4B3B2A]">
         <section className=" bg-gradient-to-r from-amber-700 via-amber-500 to-amber-200 flex-1 flex flex-row justify-items-center min-h-screen -mt-3">
           <div className="m-10 flex-1 flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
@@ -66,9 +87,6 @@ function Homepage() {
           </div>
         </section>
 
-         <div className="w-full text-center py-4 text-2xl">⋯ 🍪 ⋯</div>
-
-        {/* 🍪 SERVICES */}
         <section className="w-full px-6 py-16 flex flex-col justify-center items-center">
           <h1 className="text-3xl font-bold text-[#4B3B2A] mb-10">
             Our Cookie Magic ✨
@@ -115,7 +133,6 @@ function Homepage() {
             ))}
           </div>
         </section>
-
 
         <section className="w-full px-8 pb-16 bg-amber-50">
           <h1 className="p-12 text-3xl font-bold text-center text-[#4B3B2A]">

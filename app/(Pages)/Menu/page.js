@@ -50,6 +50,14 @@ function MenuPage() {
     return (
       <>
         <Navbar />
+        <Head>
+          <title>Menu - Chip Happens</title>
+          <meta
+            name="description"
+            content="Choose your cookie box size and start building your perfect cookie selection!"
+          />
+          <meta name="author" content="Chip Happens" />
+        </Head>
         <main className="bg-amber-50 w-full flex flex-col items-center">
           <h2 className="text-3xl font-bold pt-6 mb-6 text-[#4B3B2A] text-center">
             Choose Your Cookie Box
